@@ -1,0 +1,26 @@
+services:
+  app:
+    image: 'devicemanager:latest'
+    build:
+      context: .
+    container_name: devicemanager
+    depends_on:
+      - db
+    environment:
+      - 'SPRING_DATASOURCE_URL=jdbc:postgresql://devicedb:5432/devicedb'
+      - 'SPRING_DATASOURCE_USERNAME=nodevice'
+      - 'SPRING_DATASOURCE_PASSWORD=nosecret'
+      - 'SPRING_JPA_HIBERNATE_DDL_AUTO=update'
+
+
+    ports:
+      - "8080:8080"
+  db:
+    image: 'postgres:latest'
+    container_name: devicedb
+    environment:
+      - 'POSTGRES_DB=devicedb'
+      - 'POSTGRES_USER=nodevice'
+      - 'POSTGRES_PASSWORD=nosecret'
+    ports:
+      - '5432:5432'
