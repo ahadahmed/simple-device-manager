@@ -67,7 +67,7 @@ public class DeviceController {
     }
 
     @GetMapping()
-    public ResponseEntity<ApiResponse> devices(@PageableDefault(size = 1) Pageable pageable, PagedResourcesAssembler pagedResourcesAssembler)  {
+    public ResponseEntity<ApiResponse> devices(@PageableDefault(size = 5) Pageable pageable, PagedResourcesAssembler pagedResourcesAssembler)  {
         ApiResponse apiResponse;
         Page<Device> devices = this.deviceManager.findAllDevices(pageable);
 
@@ -78,7 +78,7 @@ public class DeviceController {
     }
 
     @GetMapping("/brand/{brand}")
-    public ResponseEntity<ApiResponse> devicesOf(@PathVariable DeviceBrand brand, @PageableDefault(size = 1) Pageable pageable, PagedResourcesAssembler pagedResourcesAssembler)  {
+    public ResponseEntity<ApiResponse> devicesOf(@PathVariable DeviceBrand brand, @PageableDefault(size = 5) Pageable pageable, PagedResourcesAssembler pagedResourcesAssembler)  {
         ApiResponse apiResponse;
         Page<Device> devices = this.deviceManager.findDevicesOf(brand, pageable);
         apiResponse = createApiResponse(HttpStatus.OK.value(), HttpStatus.OK.name(), pagedResourcesAssembler.toModel(devices));
@@ -88,12 +88,13 @@ public class DeviceController {
     }
 
     @DeleteMapping("/{deviceId}")
-    public ResponseEntity<ApiResponse> removeDevice(@PathVariable UUID deviceId) {
+    public ResponseEntity<ApiResponse> removeDevice(@PathVariable UUID deviceId) throws DeviceNotFoundException {
         ApiResponse apiResponse;
 
         logger.info("DELETE device info {}", deviceId);
+        Device device = this.deviceManager.deleteDevice(deviceId);
 
-        apiResponse = createApiResponse(HttpStatus.ACCEPTED.value(), HttpStatus.ACCEPTED.name(), deviceId);
+        apiResponse = createApiResponse(HttpStatus.ACCEPTED.value(), HttpStatus.ACCEPTED.name(), device);
 
 
         return new ResponseEntity<>(apiResponse, HttpStatus.ACCEPTED);

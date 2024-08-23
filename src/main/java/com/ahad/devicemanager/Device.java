@@ -29,6 +29,9 @@ public class Device {
     @CreationTimestamp
     private LocalDateTime creationDate;
 
+    @Column(name = "deleted")
+    private Boolean deleted = false;
+
     public Device() {}
 
     public Device(Long id, UUID deviceId, String deviceName, DeviceBrand deviceBrand, LocalDateTime creationDate) {
@@ -62,6 +65,10 @@ public class Device {
 
     public void setDeviceId(UUID deviceId) {
         this.deviceId = deviceId;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
     }
 
     public void setDeviceName(String deviceName) {

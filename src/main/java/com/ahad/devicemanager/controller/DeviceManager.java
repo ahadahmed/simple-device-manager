@@ -33,6 +33,12 @@ public class DeviceManager {
         return this.deviceDao.updateDevice(deviceById);
     }
 
+    public Device deleteDevice(UUID deviceId) throws DeviceNotFoundException {
+        Device deviceById = this.findDeviceById(deviceId);
+        deviceById.setDeleted(true);
+       return this.deviceDao.updateDevice(deviceById);
+    }
+
 
     public Device findDeviceById(UUID deviceId) throws DeviceNotFoundException {
         Optional<Device> device = Optional.ofNullable(this.deviceDao.getDevice(deviceId));
