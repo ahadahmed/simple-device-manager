@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -64,13 +66,11 @@ public class DeviceController {
     }
 
     @GetMapping()
-    public ResponseEntity<ApiResponse> devices(@RequestParam(defaultValue = "0") int offset,
-                                               @RequestParam(defaultValue = "20") int limit) {
+    public ResponseEntity<ApiResponse> devices(@PageableDefault(size = 1) Pageable pageable, PagedResourcesAssembler pagedResourcesAssembler)  {
         ApiResponse apiResponse;
-        Pageable pageRequest = PageRequest.of(offset, limit);
-        Page<Device> devices = this.deviceManager.findAllDevices(pageRequest);
+        Page<Device> devices = this.deviceManager.findAllDevices(pageable);
 
-        apiResponse = createApiResponse(HttpStatus.OK.value(), HttpStatus.OK.name(), devices);
+        apiResponse = createApiResponse(HttpStatus.OK.value(), HttpStatus.OK.name(), pagedResourcesAssembler.toModel(devices));
 
 
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
