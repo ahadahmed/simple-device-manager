@@ -1,6 +1,7 @@
 package com.ahad.devicemanager.controller;
 
 import com.ahad.devicemanager.Device;
+import com.ahad.devicemanager.DeviceBrand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -70,6 +71,16 @@ public class DeviceController {
         ApiResponse apiResponse;
         Page<Device> devices = this.deviceManager.findAllDevices(pageable);
 
+        apiResponse = createApiResponse(HttpStatus.OK.value(), HttpStatus.OK.name(), pagedResourcesAssembler.toModel(devices));
+
+
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+    }
+
+    @GetMapping("/brand/{brand}")
+    public ResponseEntity<ApiResponse> devicesOf(@PathVariable DeviceBrand brand, @PageableDefault(size = 1) Pageable pageable, PagedResourcesAssembler pagedResourcesAssembler)  {
+        ApiResponse apiResponse;
+        Page<Device> devices = this.deviceManager.findDevicesOf(brand, pageable);
         apiResponse = createApiResponse(HttpStatus.OK.value(), HttpStatus.OK.name(), pagedResourcesAssembler.toModel(devices));
 
 

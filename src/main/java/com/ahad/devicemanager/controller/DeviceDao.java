@@ -1,6 +1,7 @@
 package com.ahad.devicemanager.controller;
 
 import com.ahad.devicemanager.Device;
+import com.ahad.devicemanager.DeviceBrand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -47,5 +48,10 @@ public class DeviceDao {
 
     public Page<Device> devices(Pageable pageable){
         return deviceRepository.findAll(pageable);
+    }
+
+    public Page<Device> devices(DeviceBrand brand, Pageable pageable){
+        return deviceRepository.findAllByDeviceBrand(brand, pageable);
+
     }
 }

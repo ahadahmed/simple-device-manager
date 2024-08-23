@@ -1,6 +1,7 @@
 package com.ahad.devicemanager.controller;
 
 import com.ahad.devicemanager.Device;
+import com.ahad.devicemanager.DeviceBrand;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -36,6 +37,10 @@ public class DeviceManager {
     public Device findDeviceById(UUID deviceId) throws DeviceNotFoundException {
         Optional<Device> device = Optional.ofNullable(this.deviceDao.getDevice(deviceId));
         return device.orElseThrow(() -> new DeviceNotFoundException("Device not found with ID: " + deviceId));
+    }
+
+    public Page<Device> findDevicesOf(DeviceBrand brand, Pageable pageable) {
+        return this.deviceDao.devices(brand, pageable);
     }
 
     public Page<Device> findAllDevices(Pageable pageable) {
