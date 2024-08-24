@@ -16,7 +16,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/devices")
-public class DeviceController {
+public class DeviceController implements DeviceControllerApiSpec {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
@@ -28,6 +28,7 @@ public class DeviceController {
     }
 
 
+    @Override
     @PostMapping
     public ResponseEntity<ApiResponse> addDevice(@RequestBody Device device) throws DuplicateDeviceException {
         ApiResponse apiResponse;
@@ -40,6 +41,7 @@ public class DeviceController {
     }
 
 
+    @Override
     @GetMapping("/{deviceId}")
     public ResponseEntity<ApiResponse> deviceOf(@PathVariable UUID deviceId) throws DeviceNotFoundException {
         ApiResponse apiResponse;
@@ -52,6 +54,7 @@ public class DeviceController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
+    @Override
     @GetMapping()
     public ResponseEntity<ApiResponse> devices(@PageableDefault(size = 5) Pageable pageable, PagedResourcesAssembler pagedResourcesAssembler) {
         ApiResponse apiResponse;
@@ -63,6 +66,7 @@ public class DeviceController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
+    @Override
     @GetMapping("/brand/{brand}")
     public ResponseEntity<ApiResponse> devicesOf(@PathVariable DeviceBrand brand, @PageableDefault(size = 5) Pageable pageable, PagedResourcesAssembler pagedResourcesAssembler) {
         ApiResponse apiResponse;
@@ -73,6 +77,7 @@ public class DeviceController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
+    @Override
     @PutMapping("/{deviceId}")
     public ResponseEntity<ApiResponse> updateDevice(@PathVariable UUID deviceId, @RequestBody Device device) throws DeviceNotFoundException {
         ApiResponse apiResponse;
@@ -86,6 +91,7 @@ public class DeviceController {
         return new ResponseEntity<>(apiResponse, HttpStatus.ACCEPTED);
     }
 
+    @Override
     @DeleteMapping("/{deviceId}")
     public ResponseEntity<ApiResponse> removeDevice(@PathVariable UUID deviceId) throws DeviceNotFoundException {
         ApiResponse apiResponse;
