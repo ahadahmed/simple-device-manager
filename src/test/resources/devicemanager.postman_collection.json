@@ -1,0 +1,175 @@
+{
+	"info": {
+		"_postman_id": "1a7abf0b-370f-46d7-bd0b-82ed4624c082",
+		"name": "devicemanager",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21304224"
+	},
+	"item": [
+		{
+			"name": "Create new device",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"deviceId\": \"c46f0607-638c-4d9f-bdf2-35a570f548b8\",\r\n    \"deviceName\": \"macbook-pro-14\",\r\n    \"deviceBrand\": \"APPLE\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/devices",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"devices"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create device with Runner",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"deviceId\": \"{{deviceId}}\",\r\n    \"deviceName\": \"{{deviceName}}\",\r\n    \"deviceBrand\": \"{{deviceBrand}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/devices",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"devices"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Device",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n    \"deviceName\": \"macbook-pro-16\",\r\n    \"deviceBrand\": \"APPLE\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/devices/cfdc06ba-090f-4cfd-91a2-e86a07f435d7",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"devices",
+						"cfdc06ba-090f-4cfd-91a2-e86a07f435d7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get device by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/devices/cfdc06ba-090f-4cfd-91a2-e86a07f435d7",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"devices",
+						"cfdc06ba-090f-4cfd-91a2-e86a07f435d7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get devices",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/devices",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"devices"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get devices of brand",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/devices/brand/SAMSUNG",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"devices",
+						"brand",
+						"SAMSUNG"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteDevice",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/devices/888c8c39-d0fc-4ce6-89ed-2a1d3d0fd10a",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"devices",
+						"888c8c39-d0fc-4ce6-89ed-2a1d3d0fd10a"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
