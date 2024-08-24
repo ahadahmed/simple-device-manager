@@ -1,7 +1,10 @@
-package com.ahad.devicemanager.controller;
+package com.ahad.devicemanager.service;
 
-import com.ahad.devicemanager.Device;
-import com.ahad.devicemanager.DeviceBrand;
+import com.ahad.devicemanager.controller.DeviceNotFoundException;
+import com.ahad.devicemanager.controller.DuplicateDeviceException;
+import com.ahad.devicemanager.domain.Device;
+import com.ahad.devicemanager.domain.DeviceBrand;
+import com.ahad.devicemanager.domain.DeviceDao;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

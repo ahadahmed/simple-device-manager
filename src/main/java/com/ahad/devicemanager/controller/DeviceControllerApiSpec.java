@@ -1,7 +1,7 @@
 package com.ahad.devicemanager.controller;
 
-import com.ahad.devicemanager.Device;
-import com.ahad.devicemanager.DeviceBrand;
+import com.ahad.devicemanager.domain.Device;
+import com.ahad.devicemanager.domain.DeviceBrand;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

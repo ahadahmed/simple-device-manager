@@ -1,10 +1,10 @@
 package com.ahad.devicemanager;
 
 import com.ahad.devicemanager.controller.ApiResponse;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.ahad.devicemanager.domain.Device;
+import com.ahad.devicemanager.domain.DeviceBrand;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class DevicemanagerApplicationTests {
+class DeviceManagerApplicationTests {
 
     @Autowired
     private ObjectMapper mapper;

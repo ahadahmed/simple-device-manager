@@ -1,7 +1,8 @@
 package com.ahad.devicemanager.controller;
 
-import com.ahad.devicemanager.Device;
-import com.ahad.devicemanager.DeviceBrand;
+import com.ahad.devicemanager.domain.Device;
+import com.ahad.devicemanager.domain.DeviceBrand;
+import com.ahad.devicemanager.service.DeviceManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
