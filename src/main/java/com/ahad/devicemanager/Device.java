@@ -32,14 +32,13 @@ public class Device {
     @Column(name = "deleted")
     private Boolean deleted = false;
 
-    public Device() {}
+    protected Device() {}
 
-    public Device(Long id, UUID deviceId, String deviceName, DeviceBrand deviceBrand, LocalDateTime creationDate) {
-        this.id = id;
+    public Device(UUID deviceId, String deviceName, DeviceBrand deviceBrand) {
+
         this.deviceId = deviceId;
         this.deviceName = deviceName;
         this.deviceBrand = deviceBrand;
-        this.creationDate = creationDate;
     }
 
 
