@@ -45,5 +45,7 @@
     }
     ```
 
-
+* Notes:
+  * A sampleCSV file of consist of devices can be found into `test/resources` directory
+  * A postman collection is also added into `test/resource` directory 
 
