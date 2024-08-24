@@ -12,7 +12,7 @@ public interface DeviceRepository extends JpaRepository<Device, Long> {
 
     Device findByDeviceId(UUID deviceId);
 
-    Page<Device> findAllByDeviceBrandAndDeleted(Boolean deleted, DeviceBrand brand, Pageable pageable);
+    Page<Device> findAllByDeviceBrandAndDeleted( DeviceBrand brand, Boolean deleted, Pageable pageable);
     Page<Device> findAllByDeleted(Boolean deleted, Pageable pageable);
 
 }

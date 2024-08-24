@@ -49,7 +49,7 @@ public class DeviceDao {
     }
 
     public Page<Device> devices(DeviceBrand brand, Pageable pageable) {
-        return deviceRepository.findAllByDeviceBrandAndDeleted(false, brand, pageable);
+        return deviceRepository.findAllByDeviceBrandAndDeleted(brand, false, pageable);
 
     }
 }

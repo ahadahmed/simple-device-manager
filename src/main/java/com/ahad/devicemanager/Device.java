@@ -59,12 +59,8 @@ public class Device {
         return creationDate;
     }
 
-    public void setCreationDate(LocalDateTime creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public void setDeviceId(UUID deviceId) {
-        this.deviceId = deviceId;
+    public Boolean getDeleted() {
+        return deleted;
     }
 
     public void setDeleted(Boolean deleted) {
