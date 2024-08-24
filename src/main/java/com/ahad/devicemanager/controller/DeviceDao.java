@@ -6,11 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.UUID;
 
 @Repository
@@ -40,17 +38,17 @@ public class DeviceDao {
         return byDeviceId;
     }
 
-    public Device updateDevice( Device device) {
+    public Device updateDevice(Device device) {
         Device updatedDevice = deviceRepository.save(device);
-        return  updatedDevice;
+        return updatedDevice;
 
     }
 
-    public Page<Device> devices(Pageable pageable){
-        return deviceRepository.findAll(pageable);
+    public Page<Device> devices(Pageable pageable) {
+        return deviceRepository.findAllByDeleted(false, pageable);
     }
 
-    public Page<Device> devices(DeviceBrand brand, Pageable pageable){
+    public Page<Device> devices(DeviceBrand brand, Pageable pageable) {
         return deviceRepository.findAllByDeviceBrand(brand, pageable);
 
     }
