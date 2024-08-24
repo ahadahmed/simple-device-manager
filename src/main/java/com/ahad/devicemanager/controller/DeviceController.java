@@ -5,7 +5,6 @@ import com.ahad.devicemanager.DeviceBrand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.PagedResourcesAssembler;
@@ -40,6 +39,40 @@ public class DeviceController {
         return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
     }
 
+
+    @GetMapping("/{deviceId}")
+    public ResponseEntity<ApiResponse> deviceOf(@PathVariable UUID deviceId) throws DeviceNotFoundException {
+        ApiResponse apiResponse;
+
+        Device deviceById = this.deviceManager.deviceOf(deviceId);
+
+        apiResponse = createApiResponse(HttpStatus.OK.value(), HttpStatus.OK.name(), deviceById);
+
+
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+    }
+
+    @GetMapping()
+    public ResponseEntity<ApiResponse> devices(@PageableDefault(size = 5) Pageable pageable, PagedResourcesAssembler pagedResourcesAssembler) {
+        ApiResponse apiResponse;
+        Page<Device> devices = this.deviceManager.devices(pageable);
+
+        apiResponse = createApiResponse(HttpStatus.OK.value(), HttpStatus.OK.name(), pagedResourcesAssembler.toModel(devices));
+
+
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+    }
+
+    @GetMapping("/brand/{brand}")
+    public ResponseEntity<ApiResponse> devicesOf(@PathVariable DeviceBrand brand, @PageableDefault(size = 5) Pageable pageable, PagedResourcesAssembler pagedResourcesAssembler) {
+        ApiResponse apiResponse;
+        Page<Device> devices = this.deviceManager.devicesOf(brand, pageable);
+        apiResponse = createApiResponse(HttpStatus.OK.value(), HttpStatus.OK.name(), pagedResourcesAssembler.toModel(devices));
+
+
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+    }
+
     @PutMapping("/{deviceId}")
     public ResponseEntity<ApiResponse> updateDevice(@PathVariable UUID deviceId, @RequestBody Device device) throws DeviceNotFoundException {
         ApiResponse apiResponse;
@@ -53,46 +86,12 @@ public class DeviceController {
         return new ResponseEntity<>(apiResponse, HttpStatus.ACCEPTED);
     }
 
-
-    @GetMapping("/{deviceId}")
-    public ResponseEntity<ApiResponse> deviceOf(@PathVariable UUID deviceId) throws DeviceNotFoundException {
-        ApiResponse apiResponse;
-
-        Device deviceById = this.deviceManager.findDeviceById(deviceId);
-
-        apiResponse = createApiResponse(HttpStatus.OK.value(), HttpStatus.OK.name(), deviceById);
-
-
-        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
-    }
-
-    @GetMapping()
-    public ResponseEntity<ApiResponse> devices(@PageableDefault(size = 5) Pageable pageable, PagedResourcesAssembler pagedResourcesAssembler)  {
-        ApiResponse apiResponse;
-        Page<Device> devices = this.deviceManager.findAllDevices(pageable);
-
-        apiResponse = createApiResponse(HttpStatus.OK.value(), HttpStatus.OK.name(), pagedResourcesAssembler.toModel(devices));
-
-
-        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
-    }
-
-    @GetMapping("/brand/{brand}")
-    public ResponseEntity<ApiResponse> devicesOf(@PathVariable DeviceBrand brand, @PageableDefault(size = 5) Pageable pageable, PagedResourcesAssembler pagedResourcesAssembler)  {
-        ApiResponse apiResponse;
-        Page<Device> devices = this.deviceManager.findDevicesOf(brand, pageable);
-        apiResponse = createApiResponse(HttpStatus.OK.value(), HttpStatus.OK.name(), pagedResourcesAssembler.toModel(devices));
-
-
-        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
-    }
-
     @DeleteMapping("/{deviceId}")
     public ResponseEntity<ApiResponse> removeDevice(@PathVariable UUID deviceId) throws DeviceNotFoundException {
         ApiResponse apiResponse;
 
         logger.info("DELETE device info {}", deviceId);
-        Device device = this.deviceManager.deleteDevice(deviceId);
+        Device device = this.deviceManager.removeDevice(deviceId);
 
         apiResponse = createApiResponse(HttpStatus.ACCEPTED.value(), HttpStatus.ACCEPTED.name(), device);
 

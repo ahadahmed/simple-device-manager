@@ -25,31 +25,31 @@ public class DeviceManager {
         return createdDevice;
     }
 
+
+    public Device deviceOf(UUID deviceId) throws DeviceNotFoundException {
+        Optional<Device> device = Optional.ofNullable(this.deviceDao.getDevice(deviceId));
+        return device.orElseThrow(() -> new DeviceNotFoundException("Device not found with ID: " + deviceId));
+    }
+
+    public Page<Device> devicesOf(DeviceBrand brand, Pageable pageable) {
+        return this.deviceDao.devices(brand, pageable);
+    }
+
+    public Page<Device> devices(Pageable pageable) {
+        return this.deviceDao.devices(pageable);
+    }
+
     public Device updateDevice(UUID deviceId, Device device) throws DeviceNotFoundException {
-        Device deviceById = this.findDeviceById(deviceId);
+        Device deviceById = this.deviceOf(deviceId);
 
         deviceById.setDeviceBrand(device.getDeviceBrand());
         deviceById.setDeviceName(device.getDeviceName());
         return this.deviceDao.updateDevice(deviceById);
     }
 
-    public Device deleteDevice(UUID deviceId) throws DeviceNotFoundException {
-        Device deviceById = this.findDeviceById(deviceId);
+    public Device removeDevice(UUID deviceId) throws DeviceNotFoundException {
+        Device deviceById = this.deviceOf(deviceId);
         deviceById.setDeleted(true);
-       return this.deviceDao.updateDevice(deviceById);
-    }
-
-
-    public Device findDeviceById(UUID deviceId) throws DeviceNotFoundException {
-        Optional<Device> device = Optional.ofNullable(this.deviceDao.getDevice(deviceId));
-        return device.orElseThrow(() -> new DeviceNotFoundException("Device not found with ID: " + deviceId));
-    }
-
-    public Page<Device> findDevicesOf(DeviceBrand brand, Pageable pageable) {
-        return this.deviceDao.devices(brand, pageable);
-    }
-
-    public Page<Device> findAllDevices(Pageable pageable) {
-        return this.deviceDao.devices(pageable);
+        return this.deviceDao.updateDevice(deviceById);
     }
 }
