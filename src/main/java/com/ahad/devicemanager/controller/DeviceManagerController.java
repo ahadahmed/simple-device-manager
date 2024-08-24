@@ -17,14 +17,14 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/devices")
-public class DeviceController implements DeviceControllerApiSpec {
+public class DeviceManagerController implements DeviceControllerApiSpec {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
 
     private DeviceManager deviceManager;
 
-    public DeviceController(DeviceManager deviceManager) {
+    public DeviceManagerController(DeviceManager deviceManager) {
         this.deviceManager = deviceManager;
     }
 
