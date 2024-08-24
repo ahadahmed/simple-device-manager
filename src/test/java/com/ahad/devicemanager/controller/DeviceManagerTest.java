@@ -10,14 +10,14 @@ import org.junit.jupiter.params.provider.CsvFileSource;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 class DeviceManagerTest {
 
 
     private DeviceDao deviceDao;
     private DeviceManager deviceManager;
+
     @BeforeEach
     void init() {
         deviceDao = mock();
@@ -30,5 +30,24 @@ class DeviceManagerTest {
         Device device = new Device(UUID.fromString(deviceId), deviceName, deviceBrand);
         this.deviceManager.createDevice(device);
         verify(deviceDao).createDevice((device));
+    }
+
+    @Test
+    void returnDeviceWhenFound() throws DeviceNotFoundException {
+        UUID deviceId = UUID.randomUUID();
+        Device device = new Device(deviceId, "deviceName", DeviceBrand.APPLE);
+        when(deviceDao.getDevice(deviceId)).thenReturn(device);
+        Device result = this.deviceManager.deviceOf(deviceId);
+        assertNotNull(result);
+        assertEquals(deviceId, result.getDeviceId());
+    }
+
+    @Test
+    void throwExceptionWhenDeviceNotFound() {
+        UUID deviceId = UUID.randomUUID();
+        Device device = new Device(deviceId, "deviceName", DeviceBrand.APPLE);
+        when(deviceDao.getDevice(deviceId)).thenReturn(null);
+
+        assertThrows(DeviceNotFoundException.class, () -> this.deviceManager.deviceOf(deviceId));
     }
 }
